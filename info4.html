@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Convention Lactalis — Info (Modal / Sezioni)</title>
+<meta name="description" content="Pagina interattiva a sezioni e pop-up — Park & Go, Metro, Navette, Programma, Form, Contatti, Mappe — Convention Lactalis, 18 novembre, Superstudio Maxi">
+<style>
+  :root{
+    --purple-900:#14031f; --purple-800:#2a0b4d; --purple-700:#3a1273;
+    --accent:#ffd60a; --muted:#e6eaf2; --glass:rgba(255,255,255,0.06);
+    --glass-border:rgba(255,255,255,0.08); --card-radius:14px; --shadow:0 10px 28px rgba(0,0,0,0.45);
+    --max-width:1200px;
+    --sidebar-w:260px;
+    --focus: 0 0 0 3px rgba(255,214,10,0.15);
+  }
+  html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:linear-gradient(135deg,var(--purple-900),var(--purple-800));color:var(--muted);-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}
+  .app{max-width:calc(var(--max-width) + var(--sidebar-w));margin:18px auto;display:flex;gap:18px;padding:12px;}
+  /* Sidebar */
+  .sidebar{width:var(--sidebar-w);min-height:640px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:14px;padding:14px;border:1px solid var(--glass-border);backdrop-filter:blur(8px);box-shadow:var(--shadow)}
+  .brand{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .brand img{height:44px;border-radius:6px}
+  .brand h1{font-size:1.0rem;margin:0;color:var(--accent);font-weight:900}
+  .nav{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+  .nav button{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;border:0;background:transparent;color:var(--muted);text-align:left;font-weight:800;cursor:pointer}
+  .nav button:hover, .nav button:focus{outline:none;background:rgba(255,255,255,0.02);box-shadow:var(--focus)}
+  .nav button.active{background:linear-gradient(90deg,var(--purple-700),var(--purple-800));color:var(--accent)}
+  .small{font-size:0.9rem;color:rgba(230,234,242,0.85)}
+  .footer-side{margin-top:auto;font-size:0.85rem;color:var(--muted)}
+  .urgent-trigger{margin-top:10px;padding:10px;border-radius:10px;background:linear-gradient(90deg,#3a1273,#2a0b4d);color:var(--accent);font-weight:900;border:2px solid rgba(255,214,10,0.08);cursor:pointer}
+
+  /* Main content area */
+  .main{flex:1;min-height:640px;background:var(--glass);border-radius:14px;padding:18px;border:1px solid var(--glass-border);backdrop-filter:blur(8px);position:relative;overflow:hidden}
+  .section{display:none;height:100%;overflow:auto;padding-right:8px}
+  .section.active{display:block}
+  h2{margin-top:0;color:#fff;font-weight:900}
+  .card{background:transparent;padding:10px;margin-bottom:12px;border-radius:12px}
+  .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,214,10,0.1);color:var(--accent);font-weight:800}
+  table{width:100%;border-collapse:collapse;color:var(--muted)}
+  th,td{padding:8px;border-bottom:1px dashed rgba(255,255,255,0.04);text-align:left}
+  .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:var(--purple-800);font-weight:900;text-decoration:none}
+
+  /* Modal */
+  .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.55);display:none;align-items:center;justify-content:center;z-index:1200}
+  .modal{width:min(920px,calc(100% - 40px));background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));border-radius:14px;padding:18px;border:2px solid rgba(255,214,10,0.08);box-shadow:0 30px 60px rgba(0,0,0,0.6)}
+  .modal h3{margin:0;color:var(--accent);font-weight:900}
+  .modal .big{font-size:2.6rem;font-weight:900;color:var(--accent);margin-top:12px}
+  .modal .close{position:absolute;top:14px;right:18px;background:transparent;border:0;color:var(--muted);font-weight:900;cursor:pointer}
+
+  /* Map modal full screen */
+  .map-full{width:100%;height:70vh;border-radius:10px;border:0}
+
+  /* Responsive */
+  @media (max-width:980px){
+    .app{flex-direction:column;padding:8px}
+    .sidebar{width:100%;display:flex;flex-direction:row;overflow:auto;gap:8px;padding:10px}
+    .nav{flex-direction:row}
+    .main{min-height:520px}
+  }
+
+  /* Small helpers */
+  .alert-inline{background:linear-gradient(90deg,#3a1273,#2a0b4d);padding:12px;border-radius:10px;color:var(--accent);font-weight:900;margin:12px 0}
+  a.kv{color:var(--accent);font-weight:800}
+</style>
+</head>
+<body>
+  <div class="app" role="application" aria-label="Informazioni logistica Convention Lactalis">
+
+    <aside class="sidebar" role="navigation" aria-label="Menu principale">
+      <div class="brand">
+        <img src="LACTALIS_logotype_IT_RGB.jpg" alt="Lactalis">
+        <h1>Convention Lactalis</h1>
+      </div>
+
+      <nav class="nav" aria-label="Sezioni">
+        <button id="btn-park" class="active" aria-controls="sec-park">Park & Go</button>
+        <button id="btn-m2" aria-controls="sec-m2">Metro M2</button>
+        <button id="btn-navette" aria-controls="sec-navette">Navette</button>
+        <button id="btn-program" aria-controls="sec-program">Programma</button>
+        <button id="btn-form" aria-controls="sec-form">Modulo</button>
+        <button id="btn-contacts" aria-controls="sec-contacts">Contatti</button>
+        <button id="btn-maps" aria-controls="sec-maps">Mappe</button>
+      </nav>
+
+      <div style="margin-top:12px">
+        <div class="urgent-trigger" id="open-urgent" role="button" tabindex="0" aria-pressed="false">AVVISO URGENTE — ULTIME METROPOLITANE</div>
+      </div>
+
+      <div class="footer-side small">
+        <div>Data evento: <strong>18 novembre — SUPERSTUDIO MAXI</strong></div>
+        </div>
+    </aside>
+
+    <main class="main" role="main">
+      <section id="sec-park" class="section active" tabindex="0" aria-labelledby="park-h">
+        <h2 id="park-h">Park & Go — come funziona</h2>
+        <div class="card muted">
+          <ol>
+            <li><strong>Arrivo</strong> al punto di raccolta indicato nel modulo (Crowne Plaza / Royal Garden / Belstay).</li>
+            <li><strong>Parcheggio</strong> auto presso l’hotel (se disponibili). I posti sono limitati e <strong>non prenotabili</strong>.</li>
+            <li><strong>Trasferimento</strong> verso la location con navetta o metro (a seconda del punto).</li>
+            <li>Al termine dell’evento <strong>ritorno</strong> al punto di raccolta secondo la schedule pubblicata.</li>
+          </ol>
+          <p class="small">Nota: se non hai compilato il quick form potresti subire tempi di attesa maggiori.</p>
+        </div>
+
+        <div class="card">
+          <div class="pill">Parcheggi hotel</div>
+          <p class="muted">Belstay — <strong>100</strong> posti (non prenotabili). Royal Garden — <strong>78</strong> posti (non prenotabili). Totale: <strong>178</strong> posti per oltre <strong>400</strong> ospiti. <span style="font-weight:900;color:var(--accent)">Carpooling fondamentale (min. 2 pax, preferibile 3).</span></p>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0;color:var(--accent)">Indirizzo evento</h3>
+          <p class="muted"><strong>SUPERSTUDIO MAXI — Via Moncucco 35, Milano</strong> — attenzione: esiste altro "Superstudio" in città.</p>
+        </div>
+      </section>
+
+      <section id="sec-m2" class="section" tabindex="0" aria-labelledby="m2-h">
+        <h2 id="m2-h">Metro M2 — mappe e orari (Famagosta ↔ Assago Forum)</h2>
+        <div class="alert-inline" role="status">
+          ULTIME CORSE (per rientro al Royal Garden): <strong>23:18 — 23:48 — 00:03 — 00:18 — 00:48</strong>
+        </div>
+
+        <div class="card muted">
+          <p>Orari e frequenze tratti dal documento ufficiale M2_690.pdf (in vigore dal 03/11/2025). Verificare sempre l’app ATM per dati real-time.</p>
+          <ul>
+            <li><strong>Frequenze mattina (07:00–10:00)</strong>: servizio intensivo; verso Assago frequenza 5–7 min.</li>
+            <li><strong>Fascia 16:00–20:00</strong>: frequenze regolari, picchi ~10 min.</li>
+            <li><strong>Ultime corse</strong>: corse ordinarie fino a ~00:00–01:00; pianificare navetta/taxi per rientri molto tardi.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 style="color:var(--accent);margin:0">Mappe</h3>
+          <p class="small muted">Apri la mappa in vista ingrandita per orientarti.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+            <button class="btn" data-map="https://www.google.com/maps?q=Famagosta+Milano&output=embed">Apri mappa Famagosta</button>
+            <button class="btn" data-map="https://www.google.com/maps?q=Assago+Forum+stazione&output=embed">Apri mappa Assago Forum</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="sec-navette" class="section" tabindex="0" aria-labelledby="nav-h">
+        <h2 id="nav-h">Navette & Bus — schedule</h2>
+        <div class="card muted">
+          <p>Orari aggiornati (estratto dal Piano operativo trasporti). Cutoff operativo per gli arrivi in venue: <strong>10:30</strong>. Capacità bus considerate: <strong>50 pax</strong>, round-trip stimato circa <strong>68 minuti</strong>. Vedi piano completo per i dettagli operativi. :contentReference[oaicite:3]{index=3}</p>
+        </div>
+
+        <div class="card">
+          <table role="table" aria-label="Orari navette (dettaglio arrivi)">
+            <thead><tr><th>Origine</th><th>Run</th><th>Arrivo in venue (ora)</th><th>Passeggeri stimati</th><th>Note</th></tr></thead>
+            <tbody>
+              <tr><td>Belstay</td><td>B1 — Run 1</td><td>08:45</td><td>45</td><td>Primo gruppo Belstay</td></tr>
+              <tr><td>Belstay</td><td>B2 — Run 1</td><td>08:55</td><td>44</td><td>Secondo gruppo Belstay</td></tr>
+              <tr><td>Belstay</td><td>B1 — Run 2</td><td>09:18</td><td>44</td><td>Scaglionamento</td></tr>
+              <tr><td>Belstay</td><td>B2 — Run 2</td><td>09:28</td><td>44</td><td></td></tr>
+              <tr><td>Belstay</td><td>B1 — Run 3</td><td>09:58</td><td>44</td><td>Ultimi giri Belstay</td></tr>
+              <tr><td>Belstay</td><td>B2 — Run 3</td><td>10:08</td><td>44</td><td>Ultimi arrivi Belstay (entro cutoff)</td></tr>
+
+              <tr><td>Crowne Plaza</td><td>C1 — Run 1</td><td>09:00</td><td>50</td><td>Primo bus Crowne</td></tr>
+              <tr><td>Crowne Plaza</td><td>C2 — Run 1</td><td>09:10</td><td>50</td><td>Secondo bus Crowne (reserva)</td></tr>
+              <tr><td>Crowne Plaza</td><td>C1 — Run 2</td><td>10:08</td><td>47</td><td>Ultimi Crowne (entro cutoff)</td></tr>
+
+              <tr><td>Parma (diretti)</td><td>P1</td><td>09:00</td><td>40</td><td>Bus diretto da Parma</td></tr>
+              <tr><td>Parma (diretti)</td><td>P2</td><td>09:30</td><td>40</td><td>Seconda corsa Parma</td></tr>
+            </tbody>
+          </table>
+
+          <p class="small muted" style="margin-top:8px">Rientri serali consigliati (da confermare): <strong>23:00</strong> — <strong>00:30</strong> (seconda corsa) — servizio su chiamata tra 00:00–00:30 e taxi/mini-bus per i rientri oltre l'ultima corsa metro. :contentReference[oaicite:4]{index=4}</p>
+
+          <p class="small muted" style="margin-top:8px">Per emergenze navette / coordinamento operativo contatta: <strong>Referente All4U</strong> <a class="kv" href="tel:+393357526468">+39 335 752 6468</a> — <strong>Coordinatore trasporti</strong> <a class="kv" href="tel:+393508271415">+39 350 827 1415</a> — <strong>Referente Lactalis</strong> <a class="kv" href="tel:+393349258157">+39 334 925 8157</a>.</p>
+        </div>
+      </section>
+
+      <section id="sec-program" class="section" tabindex="0" aria-labelledby="prog-h">
+        <h2 id="prog-h">Programma — orari per gli ospiti</h2>
+        <div class="card">
+          <p class="muted"><strong>09:00 — 11:00</strong> Accrediti e guardaroba.<br>
+          <strong>11:00 — 13:00</strong> Sessione plenaria mattutina.<br>
+          <strong>13:00 — 15:00</strong> Pranzo in piedi.<br>
+          <strong>15:00 — 18:00</strong> Sessione pomeridiana.<br>
+          <strong>18:00 — 19:15</strong> Aperitivo.<br>
+          <strong>19:15</strong> Cena servita.<br>
+          <strong>22:00 — 01:00</strong> Intrattenimento serale e chiusura.</p>
+        </div>
+
+        <div class="card">
+          <h3>Programma dettagliato</h3>
+          <table role="table" aria-label="Programma dettagliato">
+            <thead><tr><th>Voce</th><th>Durata</th><th>Inizio</th><th>Fine</th></tr></thead>
+            <tbody>
+              <tr><td>Intro</td><td>00:05</td><td>10:55</td><td>11:00</td></tr>
+              <tr><td>Internazionale</td><td>00:20</td><td>11:00</td><td>11:20</td></tr>
+              <tr><td>Lactalis Italia</td><td>00:30</td><td>11:20</td><td>11:50</td></tr>
+              <tr><td>GM - Mercato (Dare)</td><td>00:20</td><td>11:50</td><td>12:10</td></tr>
+              <tr><td>PANEL - Mercato (Dare)</td><td>00:30</td><td>12:10</td><td>12:40</td></tr>
+              <tr><td>GM - Territori (Share)</td><td>00:20</td><td>12:40</td><td>13:00</td></tr>
+              <tr><td>PANEL - Territori (Share)</td><td>00:30</td><td>13:00</td><td>13:30</td></tr>
+              <tr><td>PRANZO</td><td>02:00</td><td>13:30</td><td>15:30</td></tr>
+              <tr><td>OSPITE</td><td>00:50</td><td>15:30</td><td>16:20</td></tr>
+              <tr><td>... (vedi dettaglio sopra)</td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="sec-form" class="section" tabindex="0" aria-labelledby="form-h">
+        <h2 id="form-h">Modulo di adesione</h2>
+        <div class="card muted">
+          <p>La compilazione del quick form era indispensabile per organizzare navette e ridurre i tempi di attesa.</p>
+          </div>
+      </section>
+
+      <section id="sec-contacts" class="section" tabindex="0" aria-labelledby="cont-h">
+        <h2 id="cont-h">Contatti utili</h2>
+        <div class="card">
+          <p class="muted"><strong>Referente Coordinamento Trasporti:</strong> <a class="kv" href="tel:+393508271415">+39 350 827 1415</a></p>
+          <p class="muted"><strong>Referente Lactalis:</strong> <a class="kv" href="tel:+393349258157">+39 334 925 8157</a></p>
+          <p class="muted"><strong>Referente All4U :</strong> <a class="kv" href="tel:+393357526468">+39 335 752 6468</a><br>Email: <a class="kv" href="mailto:hospitality@all4usrl.com">hospitality@all4usrl.com</a></p>
+          <p class="muted"><strong>Taxi / Radiotaxi:</strong><br>Radiotaxi: <a class="kv" href="tel:026969">02 6969</a> — TaxiBlu: <a class="kv" href="tel:024040">02 4040</a> — Radio Taxi: <a class="kv" href="tel:028585">02 8585</a></p>
+        </div>
+      </section>
+
+      <section id="sec-maps" class="section" tabindex="0" aria-labelledby="maps-h">
+        <h2 id="maps-h">Mappe rapide</h2>
+        <div class="card muted">
+          <p>Clicca per aprire la mappa in vista ingrandita.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn" data-map="https://www.google.com/maps?q=Superstudio+Maxi+Via+Moncucco+35&output=embed">Superstudio Maxi</button>
+            <button class="btn" data-map="https://www.google.com/maps?q=Belstay+Assago&output=embed">Belstay Assago</button>
+            <button class="btn" data-map="https://www.google.com/maps?q=Crowne+Plaza+San+Donato+Milano&output=embed">Crowne Plaza</button>
+            <button class="btn" data-map="https://www.google.com/maps?q=Assago+Forum+stazione&output=embed">Assago Forum</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="modal-back" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal" role="document">
+      <button class="close" id="modal-close" aria-label="Chiudi">✕</button>
+      <div id="modal-content">
+        </div>
+    </div>
+  </div>
+
+<script>
+  // Sidebar navigation logic
+  const sections = {
+    "btn-park": "sec-park",
+    "btn-m2": "sec-m2",
+    "btn-navette": "sec-navette",
+    "btn-program": "sec-program",
+    "btn-form": "sec-form",
+    "btn-contacts": "sec-contacts",
+    "btn-maps": "sec-maps"
+  };
+
+  Object.keys(sections).forEach(btnId=>{
+    const btn = document.getElementById(btnId);
+    btn.addEventListener('click', ()=> {
+      // set active class on buttons
+      document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      // show section
+      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+      document.getElementById(sections[btnId]).classList.add('active');
+      // focus for accessibility
+      document.getElementById(sections[btnId]).focus();
+    });
+  });
+
+  // Modal logic
+  const modalBack = document.getElementById('modal-back');
+  const modalContent = document.getElementById('modal-content');
+  const modalClose = document.getElementById('modal-close');
+
+  function openModal(html){
+    modalContent.innerHTML = html;
+    modalBack.style.display = 'flex';
+    modalBack.setAttribute('aria-hidden','false');
+    modalClose.focus();
+  }
+  function closeModal(){
+    modalBack.style.display = 'none';
+    modalBack.setAttribute('aria-hidden','true');
+    modalContent.innerHTML = '';
+  }
+  modalClose.addEventListener('click', closeModal);
+  modalBack.addEventListener('click', (e)=>{ if(e.target===modalBack) closeModal(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+
+  // Urgent alert button
+  document.getElementById('open-urgent').addEventListener('click', ()=>{
+    openModal(`
+      <h3>ULTIME METROPOLITANE — RIENTRO ROYAL GARDEN</h3>
+      <div class="big" style="font-size:2.4rem;margin-top:12px;color:var(--accent)">23:18 — 23:48 — 00:03 — 00:18 — 00:48</div>
+      <p style="margin-top:12px;color:var(--muted)">Attenzione: pianificate il rientro in base all'ultima corsa disponibile. Se prevedete di rientrare oltre l'ultima corsa, usate navetta o taxi organizzato.</p>
+      <div style="margin-top:14px"><button class="btn" onclick="closeModal()" aria-label="Chiudi avviso">Ho capito</button></div>
+    `);
+  });
+
+  // Map buttons open map modal
+  document.querySelectorAll('button[data-map]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const src = btn.getAttribute('data-map');
+      openModal(`<h3>Mappa — Vista ingrandita</h3>
+        <iframe class="map-full" src="${src}" loading="lazy"></iframe>
+        <div style="margin-top:8px"><button class="btn" onclick="closeModal()">Chiudi</button></div>
+      `);
+    });
+  });
+
+  // auto open urgent on page load for visibility (comment if not desired)
+  window.addEventListener('load', ()=> {
+    // small delay to allow visual rendering
+    setTimeout(()=> document.getElementById('open-urgent').click(), 700);
+  });
+</script>
+</body>
+</html>
