@@ -1,4 +1,4 @@
-<!doctype html>
+ <!doctype html>
 <html lang="it">
 <head>
 <meta charset="utf-8" />
@@ -93,11 +93,13 @@
     </aside>
 
     <main class="main" role="main">
+      <!-- PARK & GO -->
       <section id="sec-park" class="section active" tabindex="0" aria-labelledby="park-h">
         <h2 id="park-h">Park & Go — come funziona</h2>
+
         <div class="card muted">
           <ol>
-            <li><strong>Arrivo</strong> al punto di raccolta indicato nel modulo (Crowne Plaza / Royal Garden / Belstay).</li>
+            <li><strong>Arrivo</strong> al punto di raccolta indicato nel modulo (Belstay / Royal Garden — HUB per Park & Go) o al Crowne Plaza/Corsa Parma per le navette dedicate (Opzione 2).</li>
             <li><strong>Parcheggio</strong> auto presso l’hotel (se disponibili). I posti sono limitati e <strong>non prenotabili</strong>.</li>
             <li><strong>Trasferimento</strong> verso la location con navetta o metro (a seconda del punto).</li>
             <li>Al termine dell’evento <strong>ritorno</strong> al punto di raccolta secondo la schedule pubblicata.</li>
@@ -106,8 +108,13 @@
         </div>
 
         <div class="card">
-          <div class="pill">Parcheggi hotel</div>
-          <p class="muted">Belstay — <strong>100</strong> posti (non prenotabili). Royal Garden — <strong>78</strong> posti (non prenotabili). Totale: <strong>178</strong> posti per oltre <strong>400</strong> ospiti. <span style="font-weight:900;color:var(--accent)">Carpooling fondamentale (min. 2 pax, preferibile 3).</span></p>
+          <div class="pill">Parcheggi hotel (HUB Park & Go)</div>
+          <p class="muted">
+            <strong>Belstay Milano Assago</strong> — <strong>100</strong> posti (non prenotabili).<br>
+            <strong>Royal Garden</strong> — <strong>78</strong> posti (non prenotabili).<br>
+            Totale HUB: <strong>178</strong> posti per oltre <strong>400</strong> ospiti.<br>
+            <span style="font-weight:900;color:var(--accent)">Carpooling fondamentale (min. 2 pax, preferibile 3).</span>
+          </p>
         </div>
 
         <div class="card">
@@ -116,6 +123,7 @@
         </div>
       </section>
 
+      <!-- METRO M2 -->
       <section id="sec-m2" class="section" tabindex="0" aria-labelledby="m2-h">
         <h2 id="m2-h">Metro M2 — mappe e orari (Famagosta ↔ Assago Forum)</h2>
         <div class="alert-inline" role="status">
@@ -141,38 +149,34 @@
         </div>
       </section>
 
+      <!-- NAVETTE (Opzione 2: solo PARMA e CROWNE PLAZA) -->
       <section id="sec-navette" class="section" tabindex="0" aria-labelledby="nav-h">
-        <h2 id="nav-h">Navette & Bus — schedule</h2>
+        <h2 id="nav-h">Navette & Bus — schedule (Opzione 2)</h2>
         <div class="card muted">
-          <p>Orari aggiornati (estratto dal Piano operativo trasporti). Cutoff operativo per gli arrivi in venue: <strong>10:30</strong>. Capacità bus considerate: <strong>50 pax</strong>, round-trip stimato circa <strong>68 minuti</strong>. Vedi piano completo per i dettagli operativi. :contentReference[oaicite:3]{index=3}</p>
+          <p>Cutoff operativo per gli arrivi in venue: <strong>10:30</strong>. Le navette dedicate sono dimensionate per gruppi specifici (Parma / Crowne Plaza). Capienza tipica bus: <strong>50 pax</strong>. Round-trip stimato ≈ <strong>68 minuti</strong>. Pianifica l'arrivo rispettando il cutoff (ultimi bus validi arrivano entro le 10:30).</p>
         </div>
 
         <div class="card">
-          <table role="table" aria-label="Orari navette (dettaglio arrivi)">
+          <table role="table" aria-label="Orari navette (dettaglio arrivi) - Opzione 2">
             <thead><tr><th>Origine</th><th>Run</th><th>Arrivo in venue (ora)</th><th>Passeggeri stimati</th><th>Note</th></tr></thead>
             <tbody>
-              <tr><td>Belstay</td><td>B1 — Run 1</td><td>08:45</td><td>45</td><td>Primo gruppo Belstay</td></tr>
-              <tr><td>Belstay</td><td>B2 — Run 1</td><td>08:55</td><td>44</td><td>Secondo gruppo Belstay</td></tr>
-              <tr><td>Belstay</td><td>B1 — Run 2</td><td>09:18</td><td>44</td><td>Scaglionamento</td></tr>
-              <tr><td>Belstay</td><td>B2 — Run 2</td><td>09:28</td><td>44</td><td></td></tr>
-              <tr><td>Belstay</td><td>B1 — Run 3</td><td>09:58</td><td>44</td><td>Ultimi giri Belstay</td></tr>
-              <tr><td>Belstay</td><td>B2 — Run 3</td><td>10:08</td><td>44</td><td>Ultimi arrivi Belstay (entro cutoff)</td></tr>
-
-              <tr><td>Crowne Plaza</td><td>C1 — Run 1</td><td>09:00</td><td>50</td><td>Primo bus Crowne</td></tr>
-              <tr><td>Crowne Plaza</td><td>C2 — Run 1</td><td>09:10</td><td>50</td><td>Secondo bus Crowne (reserva)</td></tr>
-              <tr><td>Crowne Plaza</td><td>C1 — Run 2</td><td>10:08</td><td>47</td><td>Ultimi Crowne (entro cutoff)</td></tr>
+              <!-- Solo voci Parma e Crowne Plaza come richiesto -->
+              <tr><td>Crowne Plaza (San Donato)</td><td>C1 — Run 1</td><td>09:00</td><td>50</td><td>Primo bus Crowne</td></tr>
+              <tr><td>Crowne Plaza (San Donato)</td><td>C2 — Run 1 (backup)</td><td>09:10</td><td>50</td><td>Secondo bus Crowne (riserva)</td></tr>
+              <tr><td>Crowne Plaza (San Donato)</td><td>C1 — Run 2</td><td>10:08</td><td>47</td><td>Ultimi Crowne (entro cutoff)</td></tr>
 
               <tr><td>Parma (diretti)</td><td>P1</td><td>09:00</td><td>40</td><td>Bus diretto da Parma</td></tr>
               <tr><td>Parma (diretti)</td><td>P2</td><td>09:30</td><td>40</td><td>Seconda corsa Parma</td></tr>
             </tbody>
           </table>
 
-          <p class="small muted" style="margin-top:8px">Rientri serali consigliati (da confermare): <strong>23:00</strong> — <strong>00:30</strong> (seconda corsa) — servizio su chiamata tra 00:00–00:30 e taxi/mini-bus per i rientri oltre l'ultima corsa metro. :contentReference[oaicite:4]{index=4}</p>
+          <p class="small muted" style="margin-top:8px">Rientri serali consigliati (da confermare): <strong>23:00</strong> — <strong>00:30</strong> (seconda corsa) — servizio su chiamata tra 00:00–00:30 e taxi/mini-bus per i rientri oltre l'ultima corsa metro.</p>
 
           <p class="small muted" style="margin-top:8px">Per emergenze navette / coordinamento operativo contatta: <strong>Referente All4U</strong> <a class="kv" href="tel:+393357526468">+39 335 752 6468</a> — <strong>Coordinatore trasporti</strong> <a class="kv" href="tel:+393508271415">+39 350 827 1415</a> — <strong>Referente Lactalis</strong> <a class="kv" href="tel:+393349258157">+39 334 925 8157</a>.</p>
         </div>
       </section>
 
+      <!-- PROGRAMMA -->
       <section id="sec-program" class="section" tabindex="0" aria-labelledby="prog-h">
         <h2 id="prog-h">Programma — orari per gli ospiti</h2>
         <div class="card">
@@ -199,37 +203,45 @@
               <tr><td>PANEL - Territori (Share)</td><td>00:30</td><td>13:00</td><td>13:30</td></tr>
               <tr><td>PRANZO</td><td>02:00</td><td>13:30</td><td>15:30</td></tr>
               <tr><td>OSPITE</td><td>00:50</td><td>15:30</td><td>16:20</td></tr>
-              <tr><td>... (vedi dettaglio sopra)</td><td></td><td></td><td></td></tr>
             </tbody>
           </table>
         </div>
       </section>
 
+      <!-- FORM -->
       <section id="sec-form" class="section" tabindex="0" aria-labelledby="form-h">
         <h2 id="form-h">Modulo di adesione</h2>
         <div class="card muted">
-          <p>La compilazione del quick form era indispensabile per organizzare navette e ridurre i tempi di attesa.</p>
+          <p>La compilazione del quick form era indispensabile per organizzare navette e ridurre i tempi di attesa. Se non l'hai compilato, contatta l'organizzazione per assistenza.</p>
           </div>
       </section>
 
+      <!-- CONTATTI -->
       <section id="sec-contacts" class="section" tabindex="0" aria-labelledby="cont-h">
         <h2 id="cont-h">Contatti utili</h2>
         <div class="card">
           <p class="muted"><strong>Referente Coordinamento Trasporti:</strong> <a class="kv" href="tel:+393508271415">+39 350 827 1415</a></p>
           <p class="muted"><strong>Referente Lactalis:</strong> <a class="kv" href="tel:+393349258157">+39 334 925 8157</a></p>
-          <p class="muted"><strong>Referente All4U :</strong> <a class="kv" href="tel:+393357526468">+39 335 752 6468</a><br>Email: <a class="kv" href="mailto:hospitality@all4usrl.com">hospitality@all4usrl.com</a></p>
+          <p class="muted"><strong>Referente All4U :</strong> <a class="kv" href="tel:+393357526468">+39 335 752 6468</a><br>
+          Email: <a class="kv" href="mailto:hospitality@all4usrl.com">hospitality@all4usrl.com</a></p>
+
+          <p class="muted"><strong>Per l'organizzazione viaggi e supporto operativo:</strong><br>
+            <a class="kv" href="mailto:organizzazione.eventi@all4usrl.com">organizzazione.eventi@all4usrl.com</a>
+          </p>
+
           <p class="muted"><strong>Taxi / Radiotaxi:</strong><br>Radiotaxi: <a class="kv" href="tel:026969">02 6969</a> — TaxiBlu: <a class="kv" href="tel:024040">02 4040</a> — Radio Taxi: <a class="kv" href="tel:028585">02 8585</a></p>
         </div>
       </section>
 
+      <!-- MAPPE -->
       <section id="sec-maps" class="section" tabindex="0" aria-labelledby="maps-h">
         <h2 id="maps-h">Mappe rapide</h2>
         <div class="card muted">
           <p>Clicca per aprire la mappa in vista ingrandita.</p>
           <div style="display:flex;gap:8px;flex-wrap:wrap">
             <button class="btn" data-map="https://www.google.com/maps?q=Superstudio+Maxi+Via+Moncucco+35&output=embed">Superstudio Maxi</button>
-            <button class="btn" data-map="https://www.google.com/maps?q=Belstay+Assago&output=embed">Belstay Assago</button>
-            <button class="btn" data-map="https://www.google.com/maps?q=Crowne+Plaza+San+Donato+Milano&output=embed">Crowne Plaza</button>
+            <button class="btn" data-map="https://www.google.com/maps?q=Belstay+Assago&output=embed">Belstay Assago (HUB)</button>
+            <button class="btn" data-map="https://www.google.com/maps?q=Crowne+Plaza+San+Donato+Milano&output=embed">Crowne Plaza (Navetta)</button>
             <button class="btn" data-map="https://www.google.com/maps?q=Assago+Forum+stazione&output=embed">Assago Forum</button>
           </div>
         </div>
@@ -240,8 +252,7 @@
   <div id="modal-back" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="modal" role="document">
       <button class="close" id="modal-close" aria-label="Chiudi">✕</button>
-      <div id="modal-content">
-        </div>
+      <div id="modal-content"></div>
     </div>
   </div>
 
