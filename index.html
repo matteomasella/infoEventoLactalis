@@ -54,14 +54,53 @@ p, ul, li{color:var(--text-muted);line-height:1.35}
 footer{margin-top:18px;text-align:center;color:rgba(255,255,255,0.6);font-size:0.9rem}
 .icon-btn{padding:6px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text-muted);cursor:pointer}
 .note-italic{font-style:italic;color:var(--text-muted)}
+
+/* --- 2. CSS AGGIUNTO PER IL BANNER PRIVACY --- */
+#privacy-banner {
+  position: relative;
+  /* Uso il colore accentato per distinguerlo dalla policy trasporti */
+  border-left-color: var(--2emme-accent-teal); 
+  background: linear-gradient(90deg, rgba(84,196,166,0.06), rgba(84,196,166,0.01));
+  margin-bottom: 18px; /* Spazio prima dell'header */
+}
+#privacy-banner h2 {
+  color: var(--2emme-accent-teal);
+  margin-right: 40px; /* Lascia spazio per il pulsante chiudi */
+}
+#privacy-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+#privacy-close-btn:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--text-main);
+}
+/* --- FINE CSS AGGIUNTO --- */
+
 </style>
 </head>
 <body>
   <div class="wrapper" role="main">
+
+    <div class="card policy" id="privacy-banner">
+      <button id="privacy-close-btn" title="Chiudi">&times;</button>
+      <h2 id="privacy-h">⚠ Azione richiesta: Consenso Privacy</h2>
+      <p class="small" style="margin-bottom: 12px;">Per partecipare all'evento è obbligatorio compilare il modulo di consenso informato per la privacy. Clicca qui sotto per completare la registrazione.</p>
+      <a href="https://forms.monday.com/forms/ad813f65cb2a9ce994b64556f96aa405?r=euc1" target="_blank" rel="noopener" class="btn" style="background-color: var(--2emme-accent-teal);">Compila il modulo ora</a>
+    </div>
     <header>
       <div class="brand" aria-hidden="false">
         <div class="logos">
-          <!-- Inserisci qui i tuoi file immagine: all4u_logo.png e lactalis_logo.png -->
           <img src="all4u_logo.png" alt="All4U logo" />
           <img src="lactalis_logo.png" alt="Lactalis logo" />
         </div>
@@ -278,6 +317,26 @@ function renderSchedule(){
 }
 renderSchedule();
 
+/* --- 3. JAVASCRIPT AGGIUNTO PER CHIUDERE IL BANNER --- */
+// Racchiudo in un blocco try...catch per sicurezza
+try {
+  // Seleziono il banner e il suo pulsante di chiusura
+  const privacyBanner = document.getElementById('privacy-banner');
+  const closeBannerBtn = document.getElementById('privacy-close-btn');
+  
+  // Controllo che entrambi esistano prima di aggiungere l'evento
+  if (privacyBanner && closeBannerBtn) {
+    closeBannerBtn.addEventListener('click', () => {
+      // Al click, nascondo il banner
+      privacyBanner.style.display = 'none';
+    });
+  }
+} catch (e) {
+  console.error('Errore nella gestione del banner privacy:', e);
+}
+/* --- FINE JAVASCRIPT BANNER --- */
+
+
 /* Helpers per ICS */
 function pad(n){ return n.toString().padStart(2,'0'); }
 function formatForICSDate(dateISO, timeStr){
@@ -312,7 +371,7 @@ function buildICSFile(eventsArray){
   const header = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'CALSCALE:GREGORIAN',
+    'CALSCALE:GREGREGORIAN',
     'METHOD:PUBLISH',
     'PRODID:-//All4U//Event Transport//IT'
   ].join('\r\n') + '\r\n';
